@@ -1,15 +1,14 @@
 package com.paradigma.poc.inditex.productbyprice.infra.repositories;
 
-import com.paradigma.poc.inditex.productbyprice.application.repositories.ProductPriceBetweenDatesRepository;
+import com.paradigma.poc.inditex.productbyprice.application.data.ProductPriceBetweenDatesRepository;
 import com.paradigma.poc.inditex.productbyprice.domain.ProductIds;
 import com.paradigma.poc.inditex.productbyprice.domain.ProductPriceBetweenDates;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 // TODO: delete this class (its only for testing purposes)
-@Repository
+//@Repository
 public class ListProductPriceBetweenDatesRepository implements ProductPriceBetweenDatesRepository {
 
     public static final int PRODUCT_ID = 35455;

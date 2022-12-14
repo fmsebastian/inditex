@@ -1,6 +1,6 @@
 package com.paradigma.poc.inditex.productbyprice.application;
 
-import com.paradigma.poc.inditex.productbyprice.application.repositories.ProductPriceBetweenDatesRepository;
+import com.paradigma.poc.inditex.productbyprice.application.data.ProductPriceBetweenDatesRepository;
 import com.paradigma.poc.inditex.productbyprice.domain.PriceByDateRequest;
 import com.paradigma.poc.inditex.productbyprice.domain.ProductIds;
 import com.paradigma.poc.inditex.productbyprice.domain.ProductPriceBetweenDates;
@@ -36,7 +36,7 @@ class ProductPriceByDateCalculatorTest {
      */
     private static ProductIds PRODUCT_IDS = ProductIds.builder().productId(PRODUCT_ID).brandId(BRAND_ID).build();
 
-    private static ProductPriceBetweenDates product1 = ProductPriceBetweenDates.builder()
+    private static ProductPriceBetweenDates PRODUCT_1 = ProductPriceBetweenDates.builder()
             .productIds(PRODUCT_IDS)
             .startDate(LocalDateTime.parse("2020-06-14T00:00:00"))
             .endDate(LocalDateTime.parse("2020-12-31T23:59:59"))
@@ -45,7 +45,7 @@ class ProductPriceByDateCalculatorTest {
             .priority(0)
             .priceList(1)
             .build();
-    private static ProductPriceBetweenDates product2 = ProductPriceBetweenDates.builder()
+    private static ProductPriceBetweenDates PRODUCT_2 = ProductPriceBetweenDates.builder()
             .productIds(PRODUCT_IDS)
             .startDate(LocalDateTime.parse("2020-06-14T15:00:00"))
             .endDate(LocalDateTime.parse("2020-06-14T18:30:00"))
@@ -54,7 +54,7 @@ class ProductPriceByDateCalculatorTest {
             .priority(1)
             .priceList(2)
             .build();
-    private static ProductPriceBetweenDates product3 = ProductPriceBetweenDates.builder()
+    private static ProductPriceBetweenDates PRODUCT_3 = ProductPriceBetweenDates.builder()
             .productIds(PRODUCT_IDS)
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
             .endDate(LocalDateTime.parse("2020-06-15T11:00:00"))
@@ -63,7 +63,7 @@ class ProductPriceByDateCalculatorTest {
             .priority(1)
             .priceList(3)
             .build();
-    private static ProductPriceBetweenDates product4 = ProductPriceBetweenDates.builder()
+    private static ProductPriceBetweenDates PRODUCT_4 = ProductPriceBetweenDates.builder()
             .productIds(PRODUCT_IDS)
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
             .endDate(LocalDateTime.parse("2020-06-30T23:59:59"))
@@ -78,17 +78,18 @@ class ProductPriceByDateCalculatorTest {
     private ProductPriceBetweenDatesRepository productPriceBetweenDatesRepository;
 
     @InjectMocks
-    private ProductPriceByDateCalculator productPriceByDateCalculator;
+    private ProductPriceByDateCalculatorImpl productPriceByDateCalculator;
 
     @BeforeEach
     private void setUpRepository() {
 
         List<ProductPriceBetweenDates> productPriceBetweenDatesList = List.of(
-                product1,
-                product2,
-                product3,
-                product4
+                PRODUCT_1,
+                PRODUCT_2,
+                PRODUCT_3,
+                PRODUCT_4
         );
+
         given(productPriceBetweenDatesRepository.findByProductIds(PRODUCT_IDS)).willReturn(productPriceBetweenDatesList);
     }
 
@@ -121,14 +122,14 @@ class ProductPriceByDateCalculatorTest {
 
         return Stream.of(
                 // Input date,      expected result
-                Arguments.of("2020-06-14T10:00:00", product1),  // Test 1
-                Arguments.of("2020-06-14T16:00:00", product2),  // Test 2
-                Arguments.of("2020-06-14T21:00:00", product1),  // Test 3
-                Arguments.of("2020-06-15T10:00:00", product3),  // Test 4
-                Arguments.of("2020-06-15T12:00:00", product1),  // Extra test
-                Arguments.of("2020-06-15T18:00:00", product4),  // Extra test
-                Arguments.of("2020-06-16T21:00:00", product4),  // Test 5
-                Arguments.of("2020-07-10T15:00:00", product1)   // Extra test
+                Arguments.of("2020-06-14T10:00:00", PRODUCT_1),  // Test 1
+                Arguments.of("2020-06-14T16:00:00", PRODUCT_2),  // Test 2
+                Arguments.of("2020-06-14T21:00:00", PRODUCT_1),  // Test 3
+                Arguments.of("2020-06-15T10:00:00", PRODUCT_3),  // Test 4
+                Arguments.of("2020-06-15T12:00:00", PRODUCT_1),  // Extra test
+                Arguments.of("2020-06-15T18:00:00", PRODUCT_4),  // Extra test
+                Arguments.of("2020-06-16T21:00:00", PRODUCT_4),  // Test 5
+                Arguments.of("2020-07-10T15:00:00", PRODUCT_1)   // Extra test
         );
     }
 }

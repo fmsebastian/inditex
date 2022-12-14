@@ -1,4 +1,4 @@
-package com.paradigma.poc.inditex.productbyprice.application.repositories;
+package com.paradigma.poc.inditex.productbyprice.application.data;
 
 import com.paradigma.poc.inditex.productbyprice.domain.ProductIds;
 import com.paradigma.poc.inditex.productbyprice.domain.ProductPriceBetweenDates;
