@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class DateIntervalSplitterTest {
 
-    public static final int DAYS_BETWEEN_INITIAL_DATES = 10;
-    public static final Period PERIOD_BETWEEN_INITIAL_DATES = Period.ofDays(DAYS_BETWEEN_INITIAL_DATES);
-    public static final LocalDateTime INITIAL_START_DATE = LocalDateTime.parse("2022-10-10T00:00:00");
-    public static final LocalDateTime INITIAL_END_DATE = INITIAL_START_DATE.plus(PERIOD_BETWEEN_INITIAL_DATES);
+    private static final int DAYS_BETWEEN_INITIAL_DATES = 10;
+    private static final Period PERIOD_BETWEEN_INITIAL_DATES = Period.ofDays(DAYS_BETWEEN_INITIAL_DATES);
+    private static final LocalDateTime INITIAL_START_DATE = LocalDateTime.parse("2022-10-10T00:00:00");
+    private static final LocalDateTime INITIAL_END_DATE = INITIAL_START_DATE.plus(PERIOD_BETWEEN_INITIAL_DATES);
 
-    public static final DateInterval INITIAL_INTERVAL = DateInterval.builder()
+    private static final DateInterval INITIAL_INTERVAL = DateInterval.builder()
             .startDate(INITIAL_START_DATE)
             .endDate(INITIAL_END_DATE)
             .build();

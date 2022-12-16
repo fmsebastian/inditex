@@ -24,15 +24,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ProductPriceByDateIntegrationTest {
 
-    public static final int PRODUCT_ID = 35455;
-    public static final int BRAND_ID = 1;
+    private static final int PRODUCT_ID = 35455;
+    private static final int BRAND_ID = 1;
 
-    public static final int OTHER_PRODUCT_ID = 7894;
-    public static final int OTHER_BRAND_ID = 55;
+    private static final int OTHER_PRODUCT_ID = 7894;
+    private static final int OTHER_BRAND_ID = 55;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-    public static ProductPriceJpa PRODUCT_PRICE_1 = ProductPriceJpa.builder()
+    private static ProductPriceJpa PRODUCT_PRICE_1 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-14T00:00:00"))
@@ -43,7 +43,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(1)
             .build();
 
-    public static ProductPriceJpa PRODUCT_PRICE_2 = ProductPriceJpa.builder()
+    private static ProductPriceJpa PRODUCT_PRICE_2 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-14T15:00:00"))
@@ -54,7 +54,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(2)
             .build();
 
-    public static ProductPriceJpa PRODUCT_PRICE_3 = ProductPriceJpa.builder()
+    private static ProductPriceJpa PRODUCT_PRICE_3 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
@@ -65,7 +65,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(3)
             .build();
 
-    public static ProductPriceJpa PRODUCT_PRICE_4 = ProductPriceJpa.builder()
+    private static ProductPriceJpa PRODUCT_PRICE_4 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
@@ -76,7 +76,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(4)
             .build();
 
-    public static ProductPriceJpa PRODUCT_PRICE_5 = ProductPriceJpa.builder()
+    private static ProductPriceJpa PRODUCT_PRICE_5 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T13:00:00"))
@@ -87,7 +87,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(4)
             .build();
 
-    public static ProductPriceJpa DIFFERENT_PRODUCT_1 = ProductPriceJpa.builder()
+    private static ProductPriceJpa DIFFERENT_PRODUCT_1 = ProductPriceJpa.builder()
             .productId((long) OTHER_PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
@@ -98,7 +98,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(1)
             .build();
 
-    public static ProductPriceJpa DIFFERENT_PRODUCT_2 = ProductPriceJpa.builder()
+    private static ProductPriceJpa DIFFERENT_PRODUCT_2 = ProductPriceJpa.builder()
             .productId((long) OTHER_PRODUCT_ID)
             .brandId(BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
@@ -109,7 +109,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(2)
             .build();
 
-    public static ProductPriceJpa DIFFERENT_BRAND_1 = ProductPriceJpa.builder()
+    private static ProductPriceJpa DIFFERENT_BRAND_1 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(OTHER_BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
@@ -120,7 +120,7 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(1)
             .build();
 
-    public static ProductPriceJpa DIFFERENT_BRAND_2 = ProductPriceJpa.builder()
+    private static ProductPriceJpa DIFFERENT_BRAND_2 = ProductPriceJpa.builder()
             .productId((long) PRODUCT_ID)
             .brandId(OTHER_BRAND_ID)
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
