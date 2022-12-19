@@ -1,9 +1,9 @@
-package com.paradigma.poc.inditex.productpricebydate.domain.logic;
+package com.paradigma.poc.inditex.productpricebydate.domain.read;
 
-import com.paradigma.poc.inditex.productpricebydate.domain.ports.out.ProductPriceBetweenDatesRepository;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.PriceByDateRequest;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
+import com.paradigma.poc.inditex.productpricebydate.domain.ports.out.ProductPriceBetweenDatesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

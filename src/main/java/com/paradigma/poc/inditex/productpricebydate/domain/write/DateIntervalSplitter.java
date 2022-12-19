@@ -1,4 +1,4 @@
-package com.paradigma.poc.inditex.productpricebydate.domain.logic;
+package com.paradigma.poc.inditex.productpricebydate.domain.write;
 
 import com.paradigma.poc.inditex.productpricebydate.domain.model.DateInterval;
 import org.springframework.stereotype.Component;

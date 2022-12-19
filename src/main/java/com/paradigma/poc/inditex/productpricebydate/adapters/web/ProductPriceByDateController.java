@@ -1,10 +1,10 @@
 package com.paradigma.poc.inditex.productpricebydate.adapters.web;
 
-import com.paradigma.poc.inditex.productpricebydate.domain.ports.in.ProductPriceByDateCalculator;
-import com.paradigma.poc.inditex.productpricebydate.domain.model.PriceByDateRequest;
-import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
 import com.paradigma.poc.inditex.productpricebydate.adapters.web.resources.ProductPriceForDateResponse;
 import com.paradigma.poc.inditex.productpricebydate.adapters.web.resources.ProductPriceForDateResponseMapper;
+import com.paradigma.poc.inditex.productpricebydate.domain.model.PriceByDateRequest;
+import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
+import com.paradigma.poc.inditex.productpricebydate.domain.ports.in.ProductPriceByDateCalculator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,9 +1,9 @@
 package com.paradigma.poc.inditex.productpricebydate.adapters.data;
 
-import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
-import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
 import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpa;
 import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpaMapper;
+import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
+import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

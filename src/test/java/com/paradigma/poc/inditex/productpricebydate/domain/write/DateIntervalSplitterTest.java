@@ -1,10 +1,11 @@
-package com.paradigma.poc.inditex.productpricebydate.domain.logic;
+package com.paradigma.poc.inditex.productpricebydate.domain.write;
 
 import com.paradigma.poc.inditex.productpricebydate.domain.model.DateInterval;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -13,7 +14,8 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+@Import(DateIntervalSplitter.class)
+@ExtendWith(SpringExtension.class)
 class DateIntervalSplitterTest {
 
     private static final int DAYS_BETWEEN_INITIAL_DATES = 10;
@@ -26,7 +28,7 @@ class DateIntervalSplitterTest {
             .endDate(INITIAL_END_DATE)
             .build();
 
-    @InjectMocks
+    @Autowired
     private DateIntervalSplitter dateIntervalSplitter;
 
     @Test

@@ -13,7 +13,7 @@ To run your project locally, you can use the following command (assuming you hav
 
 > mvn spring-boot:run
 
-You can also run it using java command after maven compilation: 
+You can also run it using java command after maven compilation:
 
 > java -jar ./target/inditex-0.0.1-SNAPSHOT.jar
 
@@ -139,12 +139,12 @@ High level by-feature package has been used, but with a low level port & adapter
 architecture:
 
 - A domain layer containing:
-  - **logic** package with business logic,
-  - **model** package with value objects used
-  - **ports** package with definitions of inbound (contract for calling the domain business, such as http endpoints) and
-    outbound (contract for low level implementation details, such as databases) ports.
+    - **logic** package with business logic,
+    - **model** package with value objects used
+    - **ports** package with definitions of inbound (contract for calling the domain business, such as http endpoints)
+      and outbound (contract for low level implementation details, such as databases) ports.
 
 - An adapter layer containing:
-  - **web** package with controller implementation and its resources
-  - **data** package with specific database implementation and its entities
+    - **web** package with controller implementation and its resources
+    - **data** package with specific database implementation and its entities
 

@@ -1,4 +1,4 @@
-package com.paradigma.poc.inditex.productpricebydate.domain.logic;
+package com.paradigma.poc.inditex.productpricebydate.domain.write;
 
 import com.paradigma.poc.inditex.productpricebydate.domain.model.DateInterval;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
@@ -18,8 +18,7 @@ import java.time.Period;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @Import(value = {DateIntervalSplitter.class, ProductPriceIntervalSplitter.class})
@@ -155,9 +154,9 @@ public class ProductPriceIntervalSplitterTest {
     private void assertExpectedProducts(
             Set<ProductPriceBetweenDates> expectedProductPrices, Set<ProductPriceBetweenDates> actualProductPrices) {
 
-        assertNotNull(expectedProductPrices);
+        assertNotNull(actualProductPrices);
         assertEquals(expectedProductPrices.size(), actualProductPrices.size());
-        expectedProductPrices.forEach(actualProductPrices::contains);
+        expectedProductPrices.forEach(o -> assertTrue(actualProductPrices.contains(o)));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.paradigma.poc.inditex.productpricebydate;
 
-import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpa;
 import com.paradigma.poc.inditex.productpricebydate.adapters.data.PricesJpaRepository;
+import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpa;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
