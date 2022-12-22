@@ -29,7 +29,7 @@ public class NewProductPriceWriter {
         Set<ProductPriceBetweenDates> productsWithNewInserted =
                 newProductPriceInserter.insertNewProduct(newProductPrice, existentProduct);
 
-        productPriceBetweenDatesRepository.replaceAllByIds(productsWithNewInserted);
+        productPriceBetweenDatesRepository.replaceAllByIds(newProductPrice.getProductIds(), productsWithNewInserted);
 
         return productsWithNewInserted;
     }

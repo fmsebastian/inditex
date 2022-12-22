@@ -67,7 +67,7 @@ class NewProductPriceWriterTest {
 
         assertNotNull(savedProductPrices);
         assertEquals(newProductPricesSet, savedProductPrices);
-        then(productPriceBetweenDatesWriterRepository).should().replaceAllByIds(newProductPricesSet);
+        then(productPriceBetweenDatesWriterRepository).should().replaceAllByIds(PRODUCT_IDS, newProductPricesSet);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.paradigma.poc.inditex.productpricebydate.adapters.data;
 
+import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpa;
 import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpaMapper;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
 import com.paradigma.poc.inditex.productpricebydate.domain.ports.out.ProductPriceBetweenDatesWriterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -29,8 +31,25 @@ public class JpaProductPriceBetweenDatesRepository implements ProductPriceBetwee
     }
 
     @Override
-    public Set<ProductPriceBetweenDates> replaceAllByIds(Set<ProductPriceBetweenDates> productPriceBetweenDatesSet) {
+    public Set<ProductPriceBetweenDates> replaceAllByIds(
+            ProductIds productIds, Set<ProductPriceBetweenDates> productPriceBetweenDatesSet) {
 
-        return null;
+        if (CollectionUtils.isEmpty(productPriceBetweenDatesSet)) {
+
+            return productPriceBetweenDatesSet;
+        }
+
+        List<ProductPriceJpa> byProductIdAndBrandId =
+                pricesJpaRepository.findByProductIdAndBrandId(productIds.getProductId(), productIds.getBrandId());
+
+        pricesJpaRepository.deleteAll(byProductIdAndBrandId);
+
+        List<ProductPriceJpa> productPriceJpas = pricesJpaRepository.saveAll(productPriceBetweenDatesSet.stream()
+                .map(productPriceJpaMapper::fromProductBetweenDates)
+                .collect(Collectors.toSet()));
+
+        return productPriceJpas.stream()
+                .map(productPriceJpaMapper::toProductBetweenDates)
+                .collect(Collectors.toSet());
     }
 }
