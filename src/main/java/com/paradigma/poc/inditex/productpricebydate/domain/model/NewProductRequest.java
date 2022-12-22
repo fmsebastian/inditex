@@ -6,8 +6,8 @@ import lombok.Value;
 import java.time.LocalDateTime;
 
 @Value
-@Builder(toBuilder = true)
-public class ProductPriceBetweenDates {
+@Builder
+public class NewProductRequest {
 
     ProductIds productIds;
 
@@ -22,9 +22,5 @@ public class ProductPriceBetweenDates {
     Double price;
 
     String currency;
-
-    LocalDateTime originalStartDate;
-
-    LocalDateTime originalEndDate;
 
 }
