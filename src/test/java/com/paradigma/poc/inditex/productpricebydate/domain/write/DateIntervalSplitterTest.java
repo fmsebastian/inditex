@@ -22,12 +22,10 @@ class DateIntervalSplitterTest {
     private static final Period PERIOD_BETWEEN_INITIAL_DATES = Period.ofDays(DAYS_BETWEEN_INITIAL_DATES);
     private static final LocalDateTime INITIAL_START_DATE = LocalDateTime.parse("2022-10-10T00:00:00");
     private static final LocalDateTime INITIAL_END_DATE = INITIAL_START_DATE.plus(PERIOD_BETWEEN_INITIAL_DATES);
-
     private static final DateInterval INITIAL_INTERVAL = DateInterval.builder()
             .startDate(INITIAL_START_DATE)
             .endDate(INITIAL_END_DATE)
             .build();
-
     @Autowired
     private DateIntervalSplitter dateIntervalSplitter;
 

@@ -32,7 +32,6 @@ public class NewProductPriceInserterTest {
             .price(100.0)
             .priority(1)
             .build();
-
     @Autowired
     private NewProductPriceInserter newProductPriceInserter;
 

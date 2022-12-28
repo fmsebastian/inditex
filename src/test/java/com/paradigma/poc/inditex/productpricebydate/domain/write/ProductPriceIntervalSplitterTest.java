@@ -30,7 +30,6 @@ public class ProductPriceIntervalSplitterTest {
     public static final Period PERIOD_PRODUCT_DATES = Period.ofDays(DAYS);
     public static final LocalDateTime ORIGINAL_START_DATE = LocalDateTime.parse("2022-10-10T00:00:00");
     public static final LocalDateTime ORIGINAL_END_DATE = ORIGINAL_START_DATE.plus(PERIOD_PRODUCT_DATES);
-
     public static final ProductPriceBetweenDates ORIGINAL_PRODUCT_PRICE = ProductPriceBetweenDates.builder()
             .productIds(PRODUCT_IDS)
             .startDate(ORIGINAL_START_DATE)
@@ -38,7 +37,6 @@ public class ProductPriceIntervalSplitterTest {
             .price(100.0)
             .priority(0)
             .build();
-
     @Autowired
     private ProductPriceIntervalSplitter productPriceIntervalSplitter;
 

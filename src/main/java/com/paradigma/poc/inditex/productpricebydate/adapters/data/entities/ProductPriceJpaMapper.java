@@ -4,7 +4,6 @@ import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
