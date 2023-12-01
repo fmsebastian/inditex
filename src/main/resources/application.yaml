@@ -14,6 +14,7 @@ spring:
     username: sa
     password: test1
     driverClassName: org.h2.Driver
+  sql.init.mode: never
   jpa:
     defer-datasource-initialization: true
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect

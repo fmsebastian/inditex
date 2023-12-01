@@ -29,6 +29,10 @@ public class ProductPriceJpa {
     @Id
     @Column(name = "END_DATE")
     private LocalDateTime endDate;
+    @Column(name = "ORIGINAL_START_DATE")
+    private LocalDateTime originalStartDate;
+    @Column(name = "ORIGINAL_END_DATE")
+    private LocalDateTime originalEndDate;
     @Column(name = "PRICE_LIST")
     private Integer priceList;
     @Column(name = "PRIORITY")
@@ -37,5 +41,4 @@ public class ProductPriceJpa {
     private Double price;
     @Column(name = "CURR")
     private String currency;
-
 }

@@ -1,16 +1,18 @@
 package com.paradigma.poc.inditex.productpricebydate;
 
 import com.paradigma.poc.inditex.productpricebydate.adapters.data.PricesJpaRepository;
-import com.paradigma.poc.inditex.productpricebydate.adapters.data.entities.ProductPriceJpa;
+import com.paradigma.poc.inditex.productpricebydate.domain.model.NewProductRequest;
+import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
+import com.paradigma.poc.inditex.productpricebydate.domain.write.NewProductPriceWriter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -22,19 +24,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProductPriceByDateIntegrationTest {
+@ActiveProfiles("test")
+public class ProductPriceRequestIntegrationTest {
 
-    private static final int PRODUCT_ID = 35455;
+    private static final long PRODUCT_ID = 35455;
     private static final int BRAND_ID = 1;
 
-    private static final int OTHER_PRODUCT_ID = 7894;
+    private static final long OTHER_PRODUCT_ID = 7894;
     private static final int OTHER_BRAND_ID = 55;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-    private static ProductPriceJpa PRODUCT_PRICE_1 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest PRODUCT_PRICE_1 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-14T00:00:00"))
             .endDate(LocalDateTime.parse("2020-12-31T23:59:59"))
             .price(35.50)
@@ -43,9 +47,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(1)
             .build();
 
-    private static ProductPriceJpa PRODUCT_PRICE_2 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest PRODUCT_PRICE_2 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-14T15:00:00"))
             .endDate(LocalDateTime.parse("2020-06-14T18:30:00"))
             .price(25.45)
@@ -54,9 +59,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(2)
             .build();
 
-    private static ProductPriceJpa PRODUCT_PRICE_3 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest PRODUCT_PRICE_3 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
             .endDate(LocalDateTime.parse("2020-06-15T11:00:00"))
             .price(30.50)
@@ -65,9 +71,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(3)
             .build();
 
-    private static ProductPriceJpa PRODUCT_PRICE_4 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest PRODUCT_PRICE_4 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
             .endDate(LocalDateTime.parse("2020-06-30T23:59:59"))
             .price(38.95)
@@ -76,9 +83,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(4)
             .build();
 
-    private static ProductPriceJpa PRODUCT_PRICE_5 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest PRODUCT_PRICE_5 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T13:00:00"))
             .endDate(LocalDateTime.parse("2020-06-15T19:59:59"))
             .price(15.00)
@@ -87,9 +95,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(4)
             .build();
 
-    private static ProductPriceJpa DIFFERENT_PRODUCT_1 = ProductPriceJpa.builder()
-            .productId((long) OTHER_PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest DIFFERENT_PRODUCT_1 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(OTHER_PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
             .endDate(LocalDateTime.parse("2020-06-30T23:59:59"))
             .price(10.00)
@@ -98,9 +107,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(1)
             .build();
 
-    private static ProductPriceJpa DIFFERENT_PRODUCT_2 = ProductPriceJpa.builder()
-            .productId((long) OTHER_PRODUCT_ID)
-            .brandId(BRAND_ID)
+    private static NewProductRequest DIFFERENT_PRODUCT_2 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(OTHER_PRODUCT_ID)
+                    .brandId(BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
             .endDate(LocalDateTime.parse("2020-06-15T18:59:59"))
             .price(20.00)
@@ -109,9 +119,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(2)
             .build();
 
-    private static ProductPriceJpa DIFFERENT_BRAND_1 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(OTHER_BRAND_ID)
+    private static NewProductRequest DIFFERENT_BRAND_1 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(OTHER_BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T00:00:00"))
             .endDate(LocalDateTime.parse("2020-06-30T23:59:59"))
             .price(10.00)
@@ -120,9 +131,10 @@ public class ProductPriceByDateIntegrationTest {
             .priceList(1)
             .build();
 
-    private static ProductPriceJpa DIFFERENT_BRAND_2 = ProductPriceJpa.builder()
-            .productId((long) PRODUCT_ID)
-            .brandId(OTHER_BRAND_ID)
+    private static NewProductRequest DIFFERENT_BRAND_2 = NewProductRequest.builder()
+            .productIds(ProductIds.builder().productId(PRODUCT_ID)
+                    .brandId(OTHER_BRAND_ID)
+                    .build())
             .startDate(LocalDateTime.parse("2020-06-15T16:00:00"))
             .endDate(LocalDateTime.parse("2020-06-15T18:59:59"))
             .price(20.00)
@@ -137,21 +149,9 @@ public class ProductPriceByDateIntegrationTest {
     @Autowired
     private PricesJpaRepository pricesJpaRepository;
 
-    /**
-     * Test 1: petición a las 10:00 del día 14 del producto 35455 para la brand 1 (ZARA)
-     * Test 2: petición a las 16:00 del día 14 del producto 35455 para la brand 1 (ZARA)
-     * Test 3: petición a las 21:00 del día 14 del producto 35455 para la brand 1 (ZARA)
-     * Test 4: petición a las 10:00 del día 15 del producto 35455 para la brand 1 (ZARA)
-     * Test 5: petición a las 21:00 del día 16 del producto 35455 para la brand 1 (ZARA)
-     * <p>
-     * BRAND_ID         START_DATE               END_DATE      PRICE_LIST   PRODUCT_ID     PRIORITY   PRICE   CURR
-     * ------------------------------------------------------------------------------------------------------------
-     * 1         2020-06-14-00.00.00   2020-12-31-23.59.59      1           35455                0    35.50    EUR
-     * 1         2020-06-14-15.00.00   2020-06-14-18.30.00      2           35455                1    25.45    EUR
-     * 1         2020-06-15-00.00.00   2020-06-15-11.00.00      3           35455                1    30.50    EUR
-     * 1         2020-06-15-16.00.00   2020-06-30-23.59.59      4           35455                1    38.95    EUR
-     * 1         2020-06-15-13.00.00   2020-06-15-19.59.59      4           35455                2    15.00    EUR
-     */
+    @Autowired
+    private NewProductPriceWriter newProductPriceWriter;
+
     private static Stream<Arguments> defineCases() {
 
         return Stream.of(
@@ -190,20 +190,6 @@ public class ProductPriceByDateIntegrationTest {
         );
     }
 
-    @BeforeEach
-    public void initRepository() {
-
-        pricesJpaRepository.save(PRODUCT_PRICE_1);
-        pricesJpaRepository.save(PRODUCT_PRICE_2);
-        pricesJpaRepository.save(PRODUCT_PRICE_3);
-        pricesJpaRepository.save(PRODUCT_PRICE_4);
-        pricesJpaRepository.save(PRODUCT_PRICE_5);
-        pricesJpaRepository.save(DIFFERENT_PRODUCT_1);
-        pricesJpaRepository.save(DIFFERENT_PRODUCT_2);
-        pricesJpaRepository.save(DIFFERENT_BRAND_1);
-        pricesJpaRepository.save(DIFFERENT_BRAND_2);
-    }
-
     @AfterEach
     public void resetRepository() {
 
@@ -213,7 +199,17 @@ public class ProductPriceByDateIntegrationTest {
     @SneakyThrows
     @ParameterizedTest(name = "{0}")
     @MethodSource("defineCases")
-    public void shouldReturnExpected(String testName, Integer productId, Integer brandId, String date, ProductPriceJpa expectedResponse) {
+    public void shouldReturnExpected(String testName, Long productId, Integer brandId, String date, NewProductRequest expectedResponse) {
+
+        newProductPriceWriter.saveNewProductPrice(PRODUCT_PRICE_1);
+        newProductPriceWriter.saveNewProductPrice(PRODUCT_PRICE_2);
+        newProductPriceWriter.saveNewProductPrice(PRODUCT_PRICE_3);
+        newProductPriceWriter.saveNewProductPrice(PRODUCT_PRICE_4);
+        newProductPriceWriter.saveNewProductPrice(PRODUCT_PRICE_5);
+        newProductPriceWriter.saveNewProductPrice(DIFFERENT_PRODUCT_1);
+        newProductPriceWriter.saveNewProductPrice(DIFFERENT_PRODUCT_2);
+        newProductPriceWriter.saveNewProductPrice(DIFFERENT_BRAND_1);
+        newProductPriceWriter.saveNewProductPrice(DIFFERENT_BRAND_2);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/productprices")
                         .queryParam("brandId", String.valueOf(brandId))
@@ -221,8 +217,8 @@ public class ProductPriceByDateIntegrationTest {
                         .queryParam("applicationDate", date))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.brandId").value(expectedResponse.getBrandId()))
-                .andExpect(jsonPath("$.productId").value(expectedResponse.getProductId()))
+                .andExpect(jsonPath("$.brandId").value(expectedResponse.getProductIds().getBrandId()))
+                .andExpect(jsonPath("$.productId").value(expectedResponse.getProductIds().getProductId()))
                 .andExpect(jsonPath("$.startDate").value(expectedResponse.getStartDate().format(FORMATTER)))
                 .andExpect(jsonPath("$.endDate").value(expectedResponse.getEndDate().format(FORMATTER)))
                 .andExpect(jsonPath("$.priceList").value(expectedResponse.getPriceList()))

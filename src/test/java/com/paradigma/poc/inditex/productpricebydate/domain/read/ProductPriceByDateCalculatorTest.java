@@ -1,9 +1,9 @@
-package com.paradigma.poc.inditex.productpricebydate.domain.logic;
+package com.paradigma.poc.inditex.productpricebydate.domain.read;
 
-import com.paradigma.poc.inditex.productpricebydate.domain.ports.out.ProductPriceBetweenDatesRepository;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.PriceByDateRequest;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductIds;
 import com.paradigma.poc.inditex.productpricebydate.domain.model.ProductPriceBetweenDates;
+import com.paradigma.poc.inditex.productpricebydate.domain.ports.out.ProductPriceBetweenDatesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,15 +25,9 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class ProductPriceByDateCalculatorTest {
 
-    public static final long PRODUCT_ID = 35455;
-    public static final int BRAND_ID = 1;
+    private static final long PRODUCT_ID = 35455;
+    private static final int BRAND_ID = 1;
 
-    /**
-     * 1         2020-06-14-00.00.00                        2020-12-31-23.59.59                        1                        35455                0                        35.50            EUR
-     * 1         2020-06-14-15.00.00                        2020-06-14-18.30.00                        2                        35455                1                        25.45            EUR
-     * 1         2020-06-15-00.00.00                        2020-06-15-11.00.00                        3                        35455                1                        30.50            EUR
-     * 1         2020-06-15-16.00.00                        2020-06-30-23.59.59                        4                        35455                1                        38.95            EUR
-     */
     private static ProductIds PRODUCT_IDS = ProductIds.builder().productId(PRODUCT_ID).brandId(BRAND_ID).build();
 
     private static ProductPriceBetweenDates PRODUCT_1 = ProductPriceBetweenDates.builder()
@@ -88,6 +82,25 @@ class ProductPriceByDateCalculatorTest {
     @InjectMocks
     private ProductPriceByDateCalculatorImpl productPriceByDateCalculator;
 
+    private static Stream<Arguments> defineCases() {
+
+        return Stream.of(
+                // Input date,      expected result
+                Arguments.of("2020-06-14T10:00:00", PRODUCT_1),  // Test 1
+                Arguments.of("2020-06-14T16:00:00", PRODUCT_2),  // Test 2
+                Arguments.of("2020-06-14T21:00:00", PRODUCT_1),  // Test 3
+                Arguments.of("2020-06-15T10:00:00", PRODUCT_3),  // Test 4
+                Arguments.of("2020-06-15T12:00:00", PRODUCT_1),  // Extra test
+                Arguments.of("2020-06-16T21:00:00", PRODUCT_4),  // Test 5
+                Arguments.of("2020-07-10T15:00:00", PRODUCT_1),   // Extra test
+                Arguments.of("2020-06-15T11:00:00", PRODUCT_1),   // Extra test
+                Arguments.of("2020-06-15T00:00:00", PRODUCT_3),   // Extra test
+                Arguments.of("2020-06-15T14:00:00", PRODUCT_5),   // Extra test
+                Arguments.of("2020-06-15T18:00:00", PRODUCT_5),   // Extra test
+                Arguments.of("2020-08-15T11:00:00", PRODUCT_1)   // Extra test
+        );
+    }
+
     @BeforeEach
     private void setUpRepository() {
 
@@ -118,31 +131,5 @@ class ProductPriceByDateCalculatorTest {
 
         assertTrue(returnedPriceByDate.isPresent());
         assertEquals(expectedProductPrice, returnedPriceByDate.get());
-    }
-
-    /**
-     * Test 1: petición a las 10:00 del día 14 del producto 35455   para la brand 1 (ZARA)
-     * Test 2: petición a las 16:00 del día 14 del producto 35455   para la brand 1 (ZARA)
-     * Test 3: petición a las 21:00 del día 14 del producto 35455   para la brand 1 (ZARA)
-     * Test 4: petición a las 10:00 del día 15 del producto 35455   para la brand 1 (ZARA)
-     * Test 5: petición a las 21:00 del día 16 del producto 35455   para la brand 1 (ZARA)
-     */
-    private static Stream<Arguments> defineCases() {
-
-        return Stream.of(
-                // Input date,      expected result
-                Arguments.of("2020-06-14T10:00:00", PRODUCT_1),  // Test 1
-                Arguments.of("2020-06-14T16:00:00", PRODUCT_2),  // Test 2
-                Arguments.of("2020-06-14T21:00:00", PRODUCT_1),  // Test 3
-                Arguments.of("2020-06-15T10:00:00", PRODUCT_3),  // Test 4
-                Arguments.of("2020-06-15T12:00:00", PRODUCT_1),  // Extra test
-                Arguments.of("2020-06-16T21:00:00", PRODUCT_4),  // Test 5
-                Arguments.of("2020-07-10T15:00:00", PRODUCT_1),   // Extra test
-                Arguments.of("2020-06-15T11:00:00", PRODUCT_1),   // Extra test
-                Arguments.of("2020-06-15T00:00:00", PRODUCT_3),   // Extra test
-                Arguments.of("2020-06-15T14:00:00", PRODUCT_5),   // Extra test
-                Arguments.of("2020-06-15T18:00:00", PRODUCT_5),   // Extra test
-                Arguments.of("2020-08-15T11:00:00", PRODUCT_1)   // Extra test
-        );
     }
 }
