@@ -29,12 +29,8 @@ public class NewProductPriceInserter {
                         product -> product.getPriority().compareTo(newProductPrice.getPriority()),
                         Collectors.toSet()));
 
-        originalProductsSplitByPriority.getOrDefault(0, Collections.emptySet()).stream()
-                .filter(product -> doesProductDatesOverlapNewPriceDates(newProductPrice, product))
-                .findAny()
-                .ifPresent(p -> {
-                    throw new SamePriorityOverlapException();
-                });
+        checkNewPriceDoesNotOverlap(newProductPrice,
+                originalProductsSplitByPriority.getOrDefault(0, Collections.emptySet()));
 
         Set<ProductPriceBetweenDates> lowerPrioritySplitByNew = splitLowerPriorityByNew(
                 newProductPrice, originalProductsSplitByPriority.getOrDefault(-1, Collections.emptySet()));
@@ -48,6 +44,17 @@ public class NewProductPriceInserter {
         splitProducts.addAll(originalProductsSplitByPriority.getOrDefault(1, Collections.emptySet()));
 
         return splitProducts;
+    }
+
+    private void checkNewPriceDoesNotOverlap(ProductPriceBetweenDates newProductPrice, Set<ProductPriceBetweenDates> originalProductsSamePriority) {
+        originalProductsSamePriority.stream()
+                .filter(product -> doesProductDatesOverlapNewPriceDates(newProductPrice, product))
+                .findAny()
+                .ifPresent(p -> {
+                    throw new SamePriorityOverlapException(String.format(
+                            "There is already a price with same priority that overlaps the new one " +
+                                    "with application dates %s - %s", p.getOriginalStartDate(), p.getOriginalEndDate()));
+                });
     }
 
     private boolean doesProductDatesOverlapNewPriceDates(
